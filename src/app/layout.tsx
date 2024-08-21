@@ -31,6 +31,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
         />
+
       </head>
       <body
         className={cn(
@@ -41,7 +42,6 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <script src="https://kit.fontawesome.com/01f578687b.js"></script>
       </body>
     </html>
   );
