@@ -40,8 +40,9 @@ export default function RootLayout({
         )}
       >
         <Navbar />
+        <div className="pt-[90px] relative"></div>
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
