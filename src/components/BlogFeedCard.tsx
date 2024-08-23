@@ -38,7 +38,7 @@ export function BlogFeedCard() {
             Things you need to know about Graph Algorithms
           </h3>
           <p className="text-slate-500 mt-2">
-            Let's start learning about Graph Algorithms! Graph Algorithm A graph
+            Let&apos;s start learning about Graph Algorithms! Graph Algorithm A graph
             is a nonlinear data structure consisting of finite sets of Vertices
             (nodes) and a set of Edges which connect a pair of...
           </p>
