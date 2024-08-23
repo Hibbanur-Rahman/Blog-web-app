@@ -13,8 +13,8 @@ import {
 import Link from "next/link";
 
 import ProfileImg from "../assets/images/user-profile-img.jpg";
-import BlogFeedImg from "../assets/images/blog-feed-img.jpg";
-import ChatIcon from "../assets/images/chat-logo.svg";
+import BlogFeedImg from "@/assets/images/blog-feed-Img.jpg";
+
 
 export function BlogFeedCard() {
   return (
