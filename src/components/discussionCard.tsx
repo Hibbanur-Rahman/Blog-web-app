@@ -16,7 +16,7 @@ import ProfileImg from "../assets/images/user-profile-img.jpg";
 import BlogFeedImg from "@/assets/images/blog-feed-Img.jpg";
 
 
-export function BlogFeedCard() {
+export function DiscussionCard() {
   return (
     <Card className="p-6 my-4 rounded-xl">
       <div className="header flex justify-between w-full">

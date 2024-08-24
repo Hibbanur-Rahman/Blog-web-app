@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <main className=" w-full flex  items-center justify-center">
       <div className="w-11/12 flex gap-[20px]">
-        <div className="w-8/12">
+        <div className="md:w-8/12 w-full">
           <BlogFeedCard />
           <BlogFeedCard />
           <BlogFeedCard />
         </div>
-        <div className="w-4/12">
+        <div className="md:w-4/12  md:flex hidden flex-col">
           {/** Drafts items-card */}
           <div className=" w-full rounded-xl border p-4 mt-4">
             <div className="flex items-center justify-between">
