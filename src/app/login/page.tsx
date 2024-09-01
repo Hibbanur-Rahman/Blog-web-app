@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { cn } from "@/lib/utils";
@@ -8,11 +8,32 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import httpStatusCode from "@/constants/httpStatusCode";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted");
+    try {
+      const response = await axios.post("/api/auth/login", {
+        email,
+        password,
+      });
+
+      if (response.status === httpStatusCode.OK) {
+        toast.success("Login Successful");
+        router.push("/");
+      }
+    } catch (error) {
+      console.log("Error in login", error);
+      toast.error("Failed to login");
+    }
   };
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -23,11 +44,27 @@ export default function Login() {
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="hibban@gmail.com" type="email" />
+          <Input
+            id="email"
+            placeholder="hibban@gmail.com"
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.currentTarget.value);
+            }}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.currentTarget.value);
+            }}
+          />
         </LabelInputContainer>
 
         <button

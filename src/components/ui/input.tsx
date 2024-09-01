@@ -30,6 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           var(--blue-500),
           transparent 80%
         )
+          
       `,
         }}
         onMouseMove={handleMouseMove}

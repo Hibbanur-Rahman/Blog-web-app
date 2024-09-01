@@ -14,12 +14,28 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 import logoBlack from "../assets/images/logo-black.png";
 
+const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
+
+
 const Navbar = () => {
   return (
-    <div className="w-full bg-white flex items-center bg-[rgb(245 247 250 / 0.7)] shadow-sm py-3 justify-center fixed z-[1000]">
+    <div className="w-full bg-white flex items-center bg-[rgb(245 247 250 / 0.7)] shadow-sm py-3 justify-center fixed z-[10]">
       <div className="w-11/12 md:flex hidden  justify-between">
         <Link href="/">
           <Image
@@ -92,8 +108,52 @@ const Navbar = () => {
         </div>
       </div>
       <div className="w-full md:hidden flex items-center justify-between px-3 py-2">
-        <i className="bi bi-list text-4xl cursor-pointer"></i>
-        <Image src={logoBlack} alt="logo" className="h-[40px] w-[100px]" />
+        <div className="grid grid-cols-2 gap-2">
+          <Sheet key="left">
+            <SheetTrigger asChild>
+              <i className="bi bi-list text-4xl cursor-pointer"></i>
+            </SheetTrigger>
+            <SheetContent side="left" className="z-[100]">
+              <SheetHeader>
+                <SheetTitle>Edit profile</SheetTitle>
+                <SheetDescription>
+                  Make changes to your profile here. Click save when you&apos;re
+                  done.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    value="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="username" className="text-right">
+                    Username
+                  </Label>
+                  <Input
+                    id="username"
+                    value="@peduarte"
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="submit">Save changes</Button>
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+        </div>
+        <Link href="/">
+          <Image src={logoBlack} alt="logo" className="h-[40px] w-[100px]" />
+        </Link>
         <i className="bi bi-moon text-3xl cursor-pointer"></i>
         <Link href="/login" className={buttonVariants({ variant: "outline" })}>
           Sign up
