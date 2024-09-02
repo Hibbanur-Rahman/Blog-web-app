@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
@@ -5,8 +6,11 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import store from "@/redux/store";
 
 import {Toaster} from 'react-hot-toast'
+import { Provider } from "react-redux";
+import LayoutWrapper from "./layoutWrapper";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -45,11 +49,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Navbar />
-        <div className="pt-[90px] relative"></div>
-        {children}
-        <Toaster/>
-        {/* <Footer /> */}
+       <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

@@ -32,8 +32,43 @@ import logoBlack from "../assets/images/logo-black.png";
 
 const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
 
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
 
+import DummyProfilePic from "@/assets/images/dummy-profile-img.png";
+
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+import { StickyNote, CircleUserRound } from "lucide-react";
+import { VscHistory } from "react-icons/vsc";
+import { FiLogOut } from "react-icons/fi";
+import { FiFileText } from "react-icons/fi";
+import { PiBookmarksSimple } from "react-icons/pi";
+import { CgProfile } from "react-icons/cg";
+import { SlEqualizer } from "react-icons/sl";
+import toast from "react-hot-toast";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useEffect } from "react";
 const Navbar = () => {
+  const isAUthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    try {
+      toast.success("Logged out successfully");
+      dispatch(logout());
+    } catch (error) {
+      toast.error("Failed to logout!!");
+      console.log("Error in logout", error);
+    }
+  };
   return (
     <div className="w-full bg-white flex items-center bg-[rgb(245 247 250 / 0.7)] shadow-sm py-3 justify-center fixed z-[10]">
       <div className="w-11/12 md:flex hidden  justify-between">
@@ -92,19 +127,80 @@ const Navbar = () => {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Link
-            href="/login"
-            className="flex items-center justify-center px-4  bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600  dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          >
-            Login
-            <BottomGradient />
-          </Link>
-          <Link
-            href="/register"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            Sign up
-          </Link>
+          {isAUthenticated ? (
+            <>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <div className="rounded-full h-[40px] w-[40px] overflow-hidden cursor-pointer shadow-2xl">
+                    <Image src={DummyProfilePic} alt="" />
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-auto">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center gap-[20px] p-4">
+                      <div className="rounded-full h-[50px] w-[50px] overflow-hidden cursor-pointer shadow-2xl">
+                        <Image src={DummyProfilePic} alt="" />
+                      </div>
+                      <div className="">
+                        <h2 className="text-lg font-semibold">
+                          HIBBANUR RAHMAN
+                        </h2>
+                        <p className="text-gray-500">
+                          hibbanrahmanhyt@gmail.com
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col border-t-2 py-3">
+                      <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
+                        <FiFileText className="text-gray-500 text-xl group-hover:text-black" />{" "}
+                        <p className="text-gray-500 group-hover:text-black">My drafts</p>
+                      </div>
+                      <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
+                        <PiBookmarksSimple className="text-gray-500 text-xl group-hover:text-black" />{" "}
+                        <p className="text-gray-500 group-hover:text-black">Bookmarks</p>
+                      </div>
+                      <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
+                        {/* <CircleUserRound size={20} color="#6b7280" className="text-gray-500 text-xl group-hover:text-black" />{" "} */}
+                        <CgProfile className="text-gray-500 text-xl group-hover:text-black" />
+                        <p className="text-gray-500 group-hover:text-black">Account settings</p>
+                      </div>
+                      <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
+                        <SlEqualizer className="text-gray-500 text-xl group-hover:text-black" />{" "}
+                        <p className="text-gray-500 group-hover:text-black">Manage your blogs</p>
+                      </div>
+                      <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
+                        <VscHistory className="text-gray-500 text-xl group-hover:text-black" />{" "}
+                        <p className="text-gray-500 group-hover:text-black">My reading history</p>
+                      </div>
+                      <div
+                        className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer"
+                        onClick={handleLogOut}
+                      >
+                        <FiLogOut className="text-red-600 text-xl" />
+                        <p className="text-red-600">Log out</p>
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="flex items-center justify-center px-4  bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600  dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+              >
+                Login
+                <BottomGradient />
+              </Link>
+              <Link
+                href="/register"
+                className={buttonVariants({ variant: "outline" })}
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="w-full md:hidden flex items-center justify-between px-3 py-2">

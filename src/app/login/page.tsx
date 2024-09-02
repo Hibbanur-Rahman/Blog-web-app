@@ -12,15 +12,26 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import httpStatusCode from "@/constants/httpStatusCode";
 import { useRouter } from "next/navigation";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+import { login } from "@/redux/features/auth/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoader, setIsLoader] = useState(false);
 
+  const dispatch = useDispatch();
   const router = useRouter();
+  const isAUthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setIsLoader(true);
       const response = await axios.post("/api/auth/login", {
         email,
         password,
@@ -28,10 +39,21 @@ export default function Login() {
 
       if (response.status === httpStatusCode.OK) {
         toast.success("Login Successful");
+        setEmail("");
+        setPassword("");
+        setIsLoader(false);
+        localStorage.setItem("blog-token", response.data.data.token);
+        dispatch(
+          login({
+            user: response.data.data.user,
+            token: response.data.data.token,
+          })
+        );
         router.push("/");
       }
     } catch (error) {
       console.log("Error in login", error);
+      setIsLoader(false);
       toast.error("Failed to login");
     }
   };
@@ -68,10 +90,14 @@ export default function Login() {
         </LabelInputContainer>
 
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          className={`justify-center items-center bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] ${
+            isLoader ? "cursor-not-allowed opacity-70" : ""
+          }`}
           type="submit"
+          disabled={isLoader}
         >
-          Login &rarr;
+          {isLoader ? <ScaleLoader color="#fff" height={28} /> : `Login`}
+
           <BottomGradient />
         </button>
 

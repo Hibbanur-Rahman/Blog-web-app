@@ -14,7 +14,7 @@ const POST = async (req: NextRequest) => {
 
         if (!email || !password) {
             return NextResponse.json({
-                status: false,
+                success: false,
                 message: "Email and password are required",
             }, { status: httpStatusCode.BAD_REQUEST })
         }
@@ -22,7 +22,7 @@ const POST = async (req: NextRequest) => {
         const user = await User.findOne({ email });
         if (!user) {
             return NextResponse.json({
-                status: false,
+                success: false,
                 message: "Email is not found",
             }, { status: httpStatusCode.BAD_REQUEST })
         }
@@ -30,7 +30,7 @@ const POST = async (req: NextRequest) => {
         const isCorrectPassword = await bcryptjs.compare(password, user.password);
         if (!isCorrectPassword) {
             return NextResponse.json({
-                status: false,
+                success: false,
                 message: "Password is incorrect",
             }, { status: httpStatusCode.BAD_REQUEST });
         }
@@ -38,7 +38,7 @@ const POST = async (req: NextRequest) => {
         const JWT_SECRET = process.env.JWT_SECRET as string;
         const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '2d' });
         return NextResponse.json({
-            status: true,
+            success: true,
             message: "Login successful",
             data: {user,token}
         }, { status: httpStatusCode.OK });
