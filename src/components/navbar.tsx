@@ -137,40 +137,52 @@ const Navbar = () => {
                 </HoverCardTrigger>
                 <HoverCardContent className="w-auto">
                   <div className="flex flex-col w-full">
-                    <div className="flex items-center gap-[20px] p-4">
-                      <div className="rounded-full h-[50px] w-[50px] overflow-hidden cursor-pointer shadow-2xl">
-                        <Image src={DummyProfilePic} alt="" />
+                    <Link href="/profile">
+                      <div className="flex items-center gap-[20px] p-4">
+                        <div className="rounded-full h-[50px] w-[50px] overflow-hidden cursor-pointer shadow-2xl">
+                          <Image src={DummyProfilePic} alt="" />
+                        </div>
+                        <div className="">
+                          <h2 className="text-lg font-semibold">
+                            HIBBANUR RAHMAN
+                          </h2>
+                          <p className="text-gray-500">
+                            hibbanrahmanhyt@gmail.com
+                          </p>
+                        </div>
                       </div>
-                      <div className="">
-                        <h2 className="text-lg font-semibold">
-                          HIBBANUR RAHMAN
-                        </h2>
-                        <p className="text-gray-500">
-                          hibbanrahmanhyt@gmail.com
-                        </p>
-                      </div>
-                    </div>
+                    </Link>
                     <div className="flex flex-col border-t-2 py-3">
                       <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
                         <FiFileText className="text-gray-500 text-xl group-hover:text-black" />{" "}
-                        <p className="text-gray-500 group-hover:text-black">My drafts</p>
+                        <p className="text-gray-500 group-hover:text-black">
+                          My drafts
+                        </p>
                       </div>
                       <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
                         <PiBookmarksSimple className="text-gray-500 text-xl group-hover:text-black" />{" "}
-                        <p className="text-gray-500 group-hover:text-black">Bookmarks</p>
+                        <p className="text-gray-500 group-hover:text-black">
+                          Bookmarks
+                        </p>
                       </div>
                       <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
                         {/* <CircleUserRound size={20} color="#6b7280" className="text-gray-500 text-xl group-hover:text-black" />{" "} */}
                         <CgProfile className="text-gray-500 text-xl group-hover:text-black" />
-                        <p className="text-gray-500 group-hover:text-black">Account settings</p>
+                        <p className="text-gray-500 group-hover:text-black">
+                          Account settings
+                        </p>
                       </div>
                       <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
                         <SlEqualizer className="text-gray-500 text-xl group-hover:text-black" />{" "}
-                        <p className="text-gray-500 group-hover:text-black">Manage your blogs</p>
+                        <p className="text-gray-500 group-hover:text-black">
+                          Manage your blogs
+                        </p>
                       </div>
                       <div className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer w-full hover:bg-gray-200">
                         <VscHistory className="text-gray-500 text-xl group-hover:text-black" />{" "}
-                        <p className="text-gray-500 group-hover:text-black">My reading history</p>
+                        <p className="text-gray-500 group-hover:text-black">
+                          My reading history
+                        </p>
                       </div>
                       <div
                         className=" group flex items-center gap-[15px] p-2 px-6 cursor-pointer"
